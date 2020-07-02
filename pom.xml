@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+<!-- mvn archetype:generate -DgroupId={project-packaging} -DartifactId={project-name} -DarchetypeArtifactId={maven-template} -DinteractiveMode=false -->
+<!-- maven-template => [maven-archetype-quickstart, maven-archetype-webapp,...] https://maven.apache.org/guides/introduction/introduction-to-archetypes.html -->
+<!-- mvn archetype:generate -DgroupId=org.kumar.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false -->
+
+  <groupId>org.kumar.app</groupId>
+  <artifactId>my-app</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>my-app</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <!--
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+	<jacoco.version>0.8.3</jacoco.version>
+	<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+	<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+	<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+	<sonar.language>java</sonar.language>	
+  </properties>
+-->
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <!-- https://github.com/mkyong/maven-examples  https://mkyong.com/tutorials/maven-tutorials/ -->
+  
+    <!-- mvn exec:java -Pdev-profile -Dexec.mainClass="org.kumar.app.App" -Dexec.args="arg0 arg1 arg2" -Dexec.classpathScope=runtime  -->
+	<!--
+	<profiles>  
+	 <profile>  
+	  <id>dev-profile</id>  
+	  <build>  
+	   <plugins>  
+		<plugin>  
+		 <groupId>org.codehaus.mojo</groupId>  
+		 <artifactId>exec-maven-plugin</artifactId>  
+		 <version>1.1.1</version>  
+		 <executions>  
+		  <execution>  
+		   <phase>test</phase>  
+		   <goals>  
+			<goal>java</goal>  
+		   </goals>  
+		   <configuration>  
+			<mainClass>org.kumar.app.App</mainClass>  
+			<arguments>  
+			 <argument>arg0</argument>  
+			 <argument>arg1</argument>  
+			</arguments>  
+		   </configuration>  
+		  </execution>  
+		 </executions>  
+		</plugin>  
+	   </plugins>  
+	  </build>  
+	 </profile>  
+	</profiles>    
+	-->
+	
+<properties>
+        <!-- https://maven.apache.org/general.html#encoding-warning -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>	
+
+  <build>
+        <finalName>maven-code-coverage</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
+
+			<!-- code coverage (activates sonarqube coverage section) -->
+			<!--			
+			[INFO] - - jacoco-maven-plugin:0.8.2:report (report) @ my-app - -
+			[INFO] Loading execution data file C:\dev\sw\jenkins\javacode\my-app\target\jacoco.exec
+			[INFO] Analyzed bundle 'my-app' with 1 classes
+			mvn clean test; -> ./target/site/jacoco/org.kumar.app/App.html
+			-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.2</version>
+				<executions>
+					<execution>
+						<goals>
+						    <!-- Loading execution data file C:\dev\sw\jenkins\javacode\my-app\target\jacoco.exec -->
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- attached to Maven test phase -->
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+						    <!-- Analyzed bundle 'my-app' with 1 classes -->
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>	
+			
+			<!-- sonar cli = mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar -->
+			<!-- result last line after build http://localhost:9000/dashboard/index/org.kumar.app:my-app --> 
+			<!-- mvn {clean install} sonar:sonar -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.6.0.1398</version>
+			</plugin>			
+
+			<!-- mvn exec:java -->
+			<!-- mvn exec:java -Pdev-profile -Dexec.mainClass="org.kumar.app.App" -Dexec.args="arg0 arg1 arg2" -Dexec.classpathScope=runtime  -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<configuration>
+					<mainClass>org.kumar.app.App</mainClass>
+				</configuration>
+			</plugin>
+			
+        </plugins>
+    </build>
+</project>
