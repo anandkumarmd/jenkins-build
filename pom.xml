@@ -145,13 +145,15 @@
 	<!-- https://www.devopsschool.com/tutorial/artifactory/upload-artifacts-using-maven-in-artiactory.html -->
 	<distributionManagement>
 		<repository>
-			<id>jfrogcentral</id>
+			<!-- id>jfrogcentral</id -->
+			<id>jfrogrepo</id>
 			<name>libs-releases</name>
 			<url>http://localhost:8081/artifactory/libs-release</url>
 			<!-- url>http://localhost:8082/artifactory/libs-release-local/;username=admin;password=Paxxxxxxx!</url -->
 		</repository>
 		<snapshotRepository>
-		  <id>jfrogsnapshot</id>
+		  <!-- id>jfrogsnapshot</id -->
+		  <id>jfrogrepo</id>
 		  <name>libs-snapshot</name>
 		  <url>http://localhost:8081/artifactory/libs-snapshot</url>
 		</snapshotRepository>
