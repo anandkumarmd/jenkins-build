@@ -138,7 +138,23 @@
 					<mainClass>org.kumar.app.App</mainClass>
 				</configuration>
 			</plugin>
-			
         </plugins>
     </build>
+	
+	<!-- https://stackoverflow.com/questions/44354645/deploy-from-maven-to-jfrog-artifactory-with-properties -->
+	<!-- https://www.devopsschool.com/tutorial/artifactory/upload-artifacts-using-maven-in-artiactory.html -->
+	<distributionManagement>
+		<repository>
+			<id>jfrogcentral</id>
+			<name>libs-releases</name>
+			<url>http://localhost:8081/artifactory/libs-release</url>
+			<!-- url>http://localhost:8082/artifactory/libs-release-local/;username=admin;password=Paxxxxxxx!</url -->
+		</repository>
+		<snapshotRepository>
+		  <id>jfrogsnapshot</id>
+		  <name>libs-snapshot</name>
+		  <url>http://localhost:8081/artifactory/libs-snapshot</url>
+		</snapshotRepository>
+		<!-- deployed http://localhost:8081/artifactory/libs-snapshot/org/kumar/app/my-app/1.0-SNAPSHOT/my-app-1.0-20200703.210543-2.jar -->
+	</distributionManagement>	
 </project>
