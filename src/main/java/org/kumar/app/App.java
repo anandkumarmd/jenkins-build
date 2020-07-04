@@ -25,13 +25,13 @@ public class App
 		int sum1 = a + b;
 		int sum2 = x + y;
 		System.out.println("sum1 ="+sum1);
-		System.out.println("sum2 ="+sum3);
-		int rv = sum1 + sum2
+		System.out.println("sum2 ="+sum2);
+		int rv = sum1 + sum2;
 		System.out.println("rv ="+rv);
 		
 		int sub1 = rv - sum1;
 		int sub2 = rv - sum2;
 		System.out.println("sub1 ="+sub1);
-		System.out.println("sub2 ="+sub3);
+		System.out.println("sub2 ="+sub2);
 	}
 }
